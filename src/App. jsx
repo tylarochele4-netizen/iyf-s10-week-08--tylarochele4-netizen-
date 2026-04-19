@@ -1,0 +1,42 @@
+import './App.css';
+
+function App() {
+  // --- Task 15.1 Data ---
+  const myName = "Tyla Rochele"; 
+  const currentDate = 18/04/2026().toLocaleDateString();
+  const currentHour = 21.10().getHours();
+
+  // Conditional message logic
+  let greeting;
+  if (currentHour < 12) {
+    greeting = "Good Morning!.";
+  } else if (currentHour < 18) {
+    greeting = "Good Afternoon!.";
+  } else {
+    greeting = "Good Evening!.";
+  }
+
+  return (
+    <div className="app-container">
+      {/* 1. Heading with your name */}
+      <h1>{Tyla Rochele}'s React Project</h1>
+
+      {/* 2. 3 Paragraphs about yourself */}
+      <section className="about-me">
+        <p>I am a student.</p>
+        <p>Currently, I am learning how to build modern web apps using React and Vite.</p>
+        <p>My goal is to master frontend development and create interactive user experiences.</p>
+      </section>
+
+      {/* 3. Display current date */}
+      <div className="status-box">
+        <p>Today is: <strong>{18/04/2026}</strong></p>
+        
+        {/* 4. Conditional message based on time */}
+        <h3>{Hi}</h3>
+      </div>
+    </div>
+  );
+}
+
+export default App;
