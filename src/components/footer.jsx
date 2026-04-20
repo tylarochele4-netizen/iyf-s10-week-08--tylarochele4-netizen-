@@ -1,9 +1,0 @@
-function Footer() {
-    return (
-        <footer className="footer">
-            <p>&copy; {new Date().getFullYear()} CommunityHub. All rights reserved.</p>
-        </footer>
-    );
-}
-
-export default Footer;
