@@ -21,7 +21,7 @@ function PostCard({ post, onLike, onDelete }) {
                 
                 {/* Like Button (Task 16.4) */}
                 <button onClick={() => onLike(post.id)} className="like-btn">
-                      {post.likes}
+                     ❤ {post.likes}
                 </button>
             </div>
         </article>
