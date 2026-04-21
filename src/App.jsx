@@ -1,89 +1,86 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
-// Layout Imports
+// Imports (Ensure these paths match your sidebar exactly!)
 import Layout from './components/Layout/Layout';
-
-// Post Feature Imports
+import Footer from './components/Layout/Footer';
 import PostList from './components/Post/PostList';
 import CreatePost from './components/Post/CreatePost';
-
-// User Feature Imports
 import UserProfile from './components/User/UserProfile';
-import UserCard from './components/User/UserCard';
-
-// Shared Components
-import Button from './components/shared/Button';
 
 function App() {
-  // 1. STATE: The source of truth for our posts
+  // 1. Initial State for Posts
   const [posts, setPosts] = useState([
-    { 
-      id: 1, 
-      title: "Welcome", 
-      excerpt: "We are learning React state and folder", 
-      author: "Tyla Rochele", 
-      date: "2026-04-19", 
-      likes: 5 
-    }
+    { id: 1, title: 'Welcome!', excerpt: 'This is the first post on the Hub.', author: 'Admin', likes: 5 },
+    { id: 2, title: 'React is Fun', excerpt: 'Learning components today.', author: 'Student', likes: 2 }
   ]);
 
-  // 2. LOGIC: Add a new post (Lifting State Up)
-  const addPost = (newPost) => {
-    // We use the spread operator [...] to create a NEW array (Never mutate!)
-    setPosts([newPost, ...posts]);
+  // 2. Initial State for User
+  const [currentUser] = useState({
+    name: 'Student Developer',
+    role: 'IYF Academy Member',
+    bio: 'Building the CommunityHub frontend with React.',
+    postsCount: 1,
+    likesCount: 7
+  });
+
+  // 3. Handlers for Actions
+  const handleAddPost = (newPost) => {
+    const postWithId = { ...newPost, id: Date.now(), likes: 0 };
+    setPosts([postWithId, ...posts]);
   };
 
-  // 3. LOGIC: Handle Likes
   const handleLike = (postId) => {
     setPosts(posts.map(post => 
       post.id === postId ? { ...post, likes: post.likes + 1 } : post
     ));
   };
 
-  // 4. LOGIC: Handle Delete
   const handleDelete = (postId) => {
     setPosts(posts.filter(post => post.id !== postId));
   };
 
-  // Mock user data for the Profile
-  const currentUser = {
-    name: "Student Developer",
-    role: "IYF Academy Member",
-    bio: "Building the CommunityHub frontend with React.",
-    postsCount: posts.length,
-    likesCount: posts.reduce((sum, p) => sum + p.likes, 0)
-  };
-
+  // 4. The Layout Return
   return (
-    <Layout>
-      <div className="dashboard-grid" style={{ display: 'flex', gap: '30px' }}>
-        
-        {/* Left Column: Feed */}
-        <section style={{ flex: 2 }}>
-          <CreatePost onAddPost={addPost} />
-          <hr style={{ margin: '30px 0', border: '0.5px solid #eee' }} />
-          <h2>Community Feed</h2>
-          <PostList 
-            posts={posts} 
-            onLike={handleLike} 
-            onDelete={handleDelete} 
-          />
+    <div className="app-container">
+      <header>
+        <h1>CommunityHub</h1>
+      </header>
+      
+      <main className="main-layout">
+        <section className="feed">
+          <CreatePost onAddPost={handleAddPost} />
+          <PostList posts={posts} onLike={handleLike} onDelete={handleDelete} />
         </section>
 
-        {/* Right Column: User Info & Sidebar */}
-        <aside style={{ flex: 1 }}>
-          <UserProfile user={currentUser} />
-          <div style={{ marginTop: '20px' }}>
-            <h3>Active Members</h3>
-            <UserCard name="Sasha Monroe" role="Mentor" />
-            <UserCard name="Alby Smith" role="Student" />
-            <Button text="View All Members" variant="secondary" size="small" />
-          </div>
-        </aside>
+        <aside className="sidebar">
+  <UserProfile user={currentUser} />
+  
+  {/* The Community Members Card */}
+  <div className="post-card">
+    <h3>Community Members</h3>
+    <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+      <li style={{ padding: '8px 0', borderBottom: '1px solid #eee' }}>🟢 Sasha Monroe</li>
+      <li style={{ padding: '8px 0', borderBottom: '1px solid #eee' }}>🟢 Alby Smith</li>
+      <li style={{ padding: '8px 0', borderBottom: '1px solid #eee' }}>🟢 Jordan Vance</li>
+      <li style={{ padding: '8px 0', borderBottom: '1px solid #eee' }}>⚪ Casey Wright</li>
+      <li style={{ padding: '8px 0' }}>🟢 Riley Ford</li>
+    </ul>
+  </div>
 
-      </div>
-    </Layout>
+  <div className="post-card">
+    <h3>Quick Links</h3>
+    <ul style={{ listStyle: 'none', padding: 0 }}>
+      <li><a href="#" className="link-item">Tutorials</a></li>
+      <li><a href="#" className="link-item">Latest News</a></li>
+      <li><a href="#" className="link-item">Support</a></li>
+    </ul>
+  </div>
+</aside>
+      </main> {/* Line 80: This closes your main-layout */}
+
+      <Footer /> 
+    </div> 
   );
 }
 

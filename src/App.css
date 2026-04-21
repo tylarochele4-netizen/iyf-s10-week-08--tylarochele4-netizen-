@@ -1,109 +1,77 @@
-/* General Setup */
+body {
+  background-color: #6fd8b5 !important;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Force the background on the HTML and Body */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f4f7f6 !important; /* The !important ensures it overrides everything */
+  font-family: 'Inter', sans-serif;
+}
+
+/* 1. Global Setup */
 :root {
-  --primary: #3498db;
-  --danger: #e74c3c;
-  --bg: #f4f7f6;
-  --card-bg: #ffffff;
-  --text: #2c3e50;
+  --primary-blue: #3498db;
+  --bg-light: #f4f7f6;
+  --text-dark: #2c3e50;
+  --white: #ffffff;
 }
 
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
-  background-color: var(--bg);
-  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
 }
 
-/* Layout Container */
-.app-layout {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+/* 2. Centering the Content */
+.app-container {
+  max-width: 1100px;
+  margin: 0 auto; /* This centers the whole thing */
+  padding: 20px;
 }
 
-.content-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-  box-sizing: border-box;
+/* 3. The Layout Grid (Sidebar + Feed) */
+.main-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px; /* Feed is wide, Sidebar is fixed */
+  gap: 30px;
+  margin-top: 20px;
 }
 
-/* Post Cards */
-.post-card {
-  background: var(--card-bg);
+/* 4. Card Styling (Used for Posts and Profile) */
+.post-card, .user-profile, .create-post-card {
+  background: var(--white);
   padding: 20px;
   border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
   margin-bottom: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s;
+  border: 1px solid #e0e0e0;
 }
 
-.post-card:hover {
-  transform: translateY(-2px);
+/* 5. Headers & Buttons */
+h1 {
+  color: var(--primary-blue);
+  text-align: center;
+  font-size: 2.5rem;
 }
 
-.post-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.delete-btn {
-  background: none;
-  border: none;
-  color: #ccc;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.delete-btn:hover {
-  color: var(--danger);
-}
-
-/* Forms */
-.create-post {
-  background: var(--card-bg);
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  box-sizing: border-box;
-}
-
-/* Shared Buttons */
-.btn-primary {
-  background: var(--primary);
+.share-btn, .like-btn {
+  background-color: var(--primary-blue);
   color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 6px;
   cursor: pointer;
-  font-weight: 600;
+  transition: transform 0.2s;
 }
 
-.btn-primary:hover {
-  background: #2980b9;
-}
-
-.like-btn {
-  background: #fdf2f2;
-  border: 1px solid #fee2e2;
-  color: #dc2626;
-  padding: 5px 12px;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-/* Responsive Grid */
-@media (max-width: 768px) {
-  .dashboard-grid {
-    flex-direction: column;
-  }
+.share-btn:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
 }
